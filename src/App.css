@@ -1,0 +1,632 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-inline: 1.6rem;
+  text-align: center;
+  font-family: "Arial", sans-serif;
+  /** Colors **/
+  --color-blue: #1e00c8;
+  --color-white: #f6f6f6;
+  --color-black: #121212;
+
+  /** Typography **/
+  --fs-xs: 1rem;
+  --fs-s: 1.2rem;
+  --fs-m: 1.4rem;
+  --fs-l: 1.6rem;
+}
+html {
+  font-size: 62.5%;
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  background-color: var(--color-white);
+  color: var(--color-black);
+  min-width: 320px;
+  min-height: 100vh;
+  max-width: 100%;
+}
+/*
+   Lists
+   ========================================================================== */
+.list-grid {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: grid;
+}
+.list-grid--2 {
+  grid-template-columns: repeat(1, 1fr);
+
+  @media only screen and (min-width: 768px) and (max-width: 1024px), only screen and (min-width: 1025px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.list-grid--3 {
+  grid-template-columns: repeat(1, 1fr);
+
+  @media only screen and (min-width: 768px) and (max-width: 1024px), only screen and (min-width: 1025px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.list-grid--4 {
+  grid-template-columns: repeat(2, 1fr);
+
+  @media only screen and (min-width: 768px) and (max-width: 1024px), only screen and (min-width: 1025px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.list-grid--5 {
+  grid-template-columns: repeat(1, 1fr);
+
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media only screen and (min-width: 1025px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.list-block {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: block;
+}
+.list-flex {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/*
+   Other
+   ========================================================================== */
+.hide {
+  display: none;
+}
+.block {
+  display: block;
+}
+.fp {
+  display: flex;
+  flex-wrap: wrap;
+}
+.fp-col {
+  display: flex;
+  flex-direction: column;
+}
+.txt-center {
+  text-align: center;
+}
+.txt-up {
+  text-transform: uppercase;
+}
+
+/*
+   Media helpers
+   ========================================================================== */
+.img-responsive {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+.img-cover {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-position: 50% 0;
+}
+
+/*
+   Buttons
+   ========================================================================== */
+
+.btn-main {
+  background: var(--color-blue);
+  color: var(--color-white);
+  border-radius: 200px;
+  border: 1px solid transparent;
+  font-size: var(--fs-p);
+  font-weight: 400;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 2px;
+  padding-inline: 18px 2px;
+  gap: 8px;
+  transition: background 0.3s ease, color 0.3s ease;
+  text-wrap: nowrap;
+  cursor: pointer;
+  transition: color 200ms, background 200ms, border-color 200ms;
+  transition-duration: 200ms;
+  min-width: 168px;
+
+  .icon {
+    padding: 10px;
+    background: var(--color-white);
+    border-radius: 50%;
+    transition: color 200ms, background 200ms, border-color 200ms;
+    transition-duration: 200ms;
+    svg {
+      color: var(--color-blue);
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+.btn-main:hover {
+  background: var(--color-white);
+  color: var(--color-blue);
+  border: 1px solid var(--color-blue);
+
+  .icon {
+    background: var(--color-blue);
+    svg {
+      color: var(--color-white);
+    }
+  }
+}
+/*
+     Layout
+     ========================================================================== */
+/*
+     Texts
+     ========================================================================== */
+h1,
+.h1 {
+  font-size: clamp(2.2rem, 3vw, 2.4rem);
+  font-family: "Bitcount Prop Single", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+p,
+.p {
+  font-size: clamp(1.4rem, 2vw, 1.6rem);
+  line-height: 1.5;
+}
+
+.txt-med {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+/*
+  Site Header
+    ========================================================================== */
+
+.siteHeader {
+  width: calc(100% + 32px);
+  margin-left: -16px;
+  background: var(--color-blue);
+  color: var(--color-white);
+  padding-block: 16px;
+}
+
+.siteHeader__title {
+  font-size: 3.2rem;
+}
+
+
+/*
+   Site Main
+   ========================================================================== */
+  .siteMain {
+
+  }
+  .siteMain__top {
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 24px;
+  }
+  .siteMain__title {
+    font-family: 'Inter', sans-serif;
+
+  }
+  .siteMain__content {
+    max-width: 100%;
+
+  }
+
+
+  /*
+    Site Footer
+     ========================================================================== */
+    .siteFooter {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--color-white);
+      border-top: 1px solid var(--color-blue);
+      padding: 16px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+
+    }
+    .siteFooter__nav {
+
+    }
+    .siteFooter__nav-item {
+
+    }
+     
+  
+
+/*
+   GameSetCard
+   ========================================================================== */
+.gameSetCard {
+  background: var(--color-white);
+  border: 1px solid var(--color-blue);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  font-family: "Bitcount Prop Single", monospace;
+  max-width: 500px;
+  width: 100%;
+}
+
+.gameSetCard__header {
+  margin-bottom: 16px;
+}
+
+.gameSetCard__title {
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--color-black);
+  margin: 0;
+  text-align: left;
+}
+
+.gameSetCard__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.gameSetCard__table-header {
+  border-bottom: 2px solid var(--color-blue);
+}
+
+.gameSetCard__table-header-cell {
+  padding: 12px 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--color-black);
+  text-align: left;
+}
+
+.gameSetCard__table-header-cell--score {
+  text-align: right;
+}
+
+.gameSetCard__table-row {
+  border-bottom: 1px solid transparent;
+}
+
+.gameSetCard__table-cell {
+  padding: 8px 16px;
+  font-size: 1.4rem;
+  color: var(--color-black);
+  text-align: left;
+}
+
+.gameSetCard__table-cell--score {
+  text-align: right;
+  color: var(--color-blue);
+  font-weight: 300;
+  font-size: 1.6rem;
+}
+
+.gameSetCard__player-name {
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--color-black);
+}
+
+
+/*
+   CreateGameSet
+   ========================================================================== */
+.createGameSet {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-white);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+}
+
+.createGameSet__header {
+  padding: 16px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.createGameSet__cancel-btn {
+  background: var(--color-blue);
+  color: var(--color-white);
+  border-radius: 200px;
+  border: 1px solid transparent;
+  font-size: 1.4rem;
+  font-weight: 400;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 2px;
+  padding-inline: 18px 2px;
+  gap: 8px;
+  cursor: pointer;
+  transition: color 200ms, background 200ms, border-color 200ms;
+  min-width: 120px;
+}
+
+.createGameSet__cancel-btn:hover {
+  background: var(--color-white);
+  color: var(--color-blue);
+  border: 1px solid var(--color-blue);
+}
+
+.createGameSet__cancel-btn .icon {
+  padding: 10px;
+  background: var(--color-white);
+  border-radius: 50%;
+  transition: color 200ms, background 200ms;
+}
+
+.createGameSet__cancel-btn .icon svg {
+  color: var(--color-blue);
+  width: 16px;
+  height: 16px;
+}
+
+.createGameSet__cancel-btn:hover .icon {
+  background: var(--color-blue);
+}
+
+.createGameSet__cancel-btn:hover .icon svg {
+  color: var(--color-white);
+}
+
+.createGameSet__content {
+  flex: 1;
+  padding: 0 16px 100px;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.createGameSet__title {
+  font-size: 2.8rem;
+  font-weight: 400;
+  color: var(--color-black);
+  margin: 0 0 8px;
+  font-family: 'Inter', sans-serif;
+}
+
+.createGameSet__subtitle {
+  font-size: 1.4rem;
+  color: var(--color-black);
+  opacity: 0.7;
+  margin: 0 0 32px;
+  line-height: 1.5;
+}
+
+.createGameSet__field {
+  margin-bottom: 24px;
+}
+
+.createGameSet__label {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--color-black);
+  margin-bottom: 8px;
+}
+
+.createGameSet__input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--color-black);
+  border-radius: 8px;
+  font-size: 1.4rem;
+  font-family: 'Inter', sans-serif;
+  background: var(--color-white);
+  color: var(--color-black);
+}
+
+.createGameSet__input:focus {
+  outline: none;
+  border-color: var(--color-blue);
+}
+
+.createGameSet__input::placeholder {
+  color: var(--color-black);
+  opacity: 0.5;
+}
+
+.createGameSet__selected-players {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.createGameSet__selected-player {
+  background: var(--color-blue);
+  color: var(--color-white);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Bitcount Prop Single", monospace;
+}
+
+.createGameSet__selected-player button {
+  background: none;
+  border: none;
+  color: var(--color-white);
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.createGameSet__player-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.createGameSet__player-btn {
+  padding: 12px;
+  border: 1px solid var(--color-black);
+  border-radius: 8px;
+  background: var(--color-white);
+  font-family: "Bitcount Prop Single", monospace;
+  font-size: 1.4rem;
+  color: var(--color-black);
+  cursor: pointer;
+  transition: all 200ms;
+}
+
+.createGameSet__player-btn--selected {
+  background: var(--color-blue);
+  border-color: var(--color-blue);
+  color: var(--color-white);
+}
+
+.createGameSet__player-btn:hover {
+  border-color: var(--color-blue);
+}
+
+.createGameSet__add-player {
+  background: none;
+  border: none;
+  color: var(--color-blue);
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.createGameSet__footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--color-white);
+  border-top: 1px solid var(--color-black);
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.createGameSet__create-btn {
+  background: var(--color-blue);
+  color: var(--color-white);
+  border-radius: 200px;
+  border: 1px solid transparent;
+  font-size: 1.4rem;
+  font-weight: 400;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 2px;
+  padding-inline: 18px 2px;
+  gap: 8px;
+  cursor: pointer;
+  transition: color 200ms, background 200ms, border-color 200ms;
+  min-width: 168px;
+}
+
+.createGameSet__create-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.createGameSet__create-btn:hover:not(:disabled) {
+  background: var(--color-white);
+  color: var(--color-blue);
+  border: 1px solid var(--color-blue);
+}
+
+.createGameSet__create-btn .icon {
+  padding: 10px;
+  background: var(--color-white);
+  border-radius: 50%;
+  transition: color 200ms, background 200ms;
+}
+
+.createGameSet__create-btn .icon svg {
+  color: var(--color-blue);
+  width: 16px;
+  height: 16px;
+}
+
+.createGameSet__create-btn:hover:not(:disabled) .icon {
+  background: var(--color-blue);
+}
+
+.createGameSet__create-btn:hover:not(:disabled) .icon svg {
+  color: var(--color-white);
+}
+
+.createGameSet__add-player-form {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.createGameSet__add-player-form .createGameSet__input {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.createGameSet__add-player-btn {
+  background: var(--color-blue);
+  color: var(--color-white);
+  border: 1px solid var(--color-blue);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: all 200ms;
+  white-space: nowrap;
+}
+
+.createGameSet__add-player-btn:hover:not(:disabled) {
+  background: var(--color-white);
+  color: var(--color-blue);
+}
+
+.createGameSet__add-player-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
