@@ -1,20 +1,34 @@
 import React from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 
 interface Player {
   name: string;
   score: number;
 }
+interface GameSet {
+  id: string;
+  name: string;
+  created_at: string;
+  players?: Player[];
+}
 
 interface GameSetCardProps {
   title: string;
   players: Player[];
+  gameSet: GameSet;
 }
 
 
 
-function GameSetCard({ title, players }: GameSetCardProps) {
+function GameSetCard({ title, players, gameSet }: GameSetCardProps) {
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate(`/set/${gameSet.id}`) // Navigate to SetView with the set ID
+  }
+
    return (
-    <div className="gameSetCard">
+    <div className="gameSetCard" onClick={handleClick}>
       <div className="gameSetCard__header">
         <h2 className="gameSetCard__title">{title}</h2>
       </div>

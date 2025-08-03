@@ -144,6 +144,7 @@ const PrivateRoute: React.FC = () => {
                   <GameSetCard 
                     key={gameSet.id} 
                     title={gameSet.name} 
+                    gameSet={gameSet}
                     players={gameSet.players || []} />
                 ))}
               </ul>
