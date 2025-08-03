@@ -26,7 +26,7 @@ function CreateGameSet({ onClose, onCreateGame }: CreateGameSetProps) {
   const [newPlayerName, setNewPlayerName] = useState('')
   const [isAddingPlayer, setIsAddingPlayer] = useState(false)
 
-    // Fetch players from Supabase on component mount
+    // Fetch players on mount
   useEffect(() => {
     fetchPlayers()
   }, [])
@@ -117,14 +117,19 @@ function CreateGameSet({ onClose, onCreateGame }: CreateGameSetProps) {
     setIsCreating(true)
 
     try {
-      // Insert game set into Supabase
+      // Insert game set into Supabase DB
       const { data, error } = await supabase
         .from('game_sets')
         .insert([
           {
             name: setName.trim(),
             created_at: new Date().toISOString(),
-             user_id: user ? user.id : null  
+            user_id: user ? user.id : null,
+            player_ids: selectedPlayers.map(name => {
+              const player = existingPlayers.find(p => p.name === name)
+              return player ? player.id : null
+            }).filter(id => id !== null)
+
           }
         ])
         .select()
