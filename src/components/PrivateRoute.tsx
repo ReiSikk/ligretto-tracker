@@ -8,13 +8,6 @@ import GameSetCard from './GameSetCard'
 import CreateGameSet from './CreateGameSet'
 import type { PostgrestError } from '@supabase/supabase-js'
 
-const mockPlayers = [
-    { name: 'Rei', score: 10 },
-    { name: 'Rems', score: 20 },
-    { name: 'Player 3', score: 15 },
-    { name: 'Player 4', score: 25 }
-  ]
-
   interface Player {
     id: string;
     name: string;
