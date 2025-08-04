@@ -241,6 +241,11 @@ p,
   }
   .siteMain__content {
     max-width: 100%;
+    margin-bottom: 63px;
+
+    ul {
+      justify-content: center;
+    }
 
   }
 
@@ -283,6 +288,7 @@ p,
   font-family: "Bitcount Prop Single", monospace;
   max-width: 500px;
   width: 100%;
+  cursor: pointer;
 }
 
 .gameSetCard__header {
@@ -812,4 +818,314 @@ p,
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+
+/*
+   SetView Component
+   ========================================================================== */
+.setView {
+  min-height: 100vh;
+  background: var(--color-white);
+  padding: 16px;
+  font-family: 'Inter', sans-serif;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.setView--loading,
+.setView--error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 1.6rem;
+  color: var(--color-black);
+  text-align: center;
+}
+
+/* Header */
+.setView__header {
+  background: var(--color-blue);
+  color: var(--color-white);
+  padding: 24px 20px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.setView__title {
+  font-size: 4rem;
+  font-weight: 400;
+  font-family: "Bitcount Prop Single", monospace;
+  letter-spacing: -0.02em;
+}
+
+.setView__back-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  color: var(--color-white);
+  font-size: 1.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 200ms ease;
+}
+
+.setView__back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Track Game Section */
+.setView__track-section {
+  margin-bottom: 24px;
+}
+
+.setView__track-title {
+  font-size: 3.2rem;
+  font-weight: 400;
+  color: var(--color-black);
+  margin: 0;
+  font-family: "Bitcount Prop Single", monospace;
+}
+
+/* Game Info */
+.setView__game-info {
+  background: var(--color-white);
+  border: 2px solid var(--color-blue);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.setView__game-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--color-black);
+  margin-bottom: 8px;
+  font-family: "Bitcount Prop Single", monospace;
+}
+
+.setView__rounds-info {
+  font-size: 1.4rem;
+  color: var(--color-black);
+  opacity: 0.7;
+  text-align: right;
+}
+
+/* Scores Section */
+.setView__scores-section {
+  background: var(--color-white);
+  border: 2px solid var(--color-blue);
+  border-radius: 16px;
+  padding: 24px 20px;
+  margin-bottom: 24px;
+}
+
+.setView__scores-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-black);
+  margin: 0 0 24px;
+  letter-spacing: 0.05em;
+  font-family: "Bitcount Prop Single", monospace;
+}
+
+.setView__score-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.setView__score-input-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+}
+
+.setView__player-label {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--color-black);
+  font-family: "Bitcount Prop Single", monospace;
+  flex: 1;
+}
+
+.setView__score-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.setView__score-number {
+  width: 60px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 500;
+  background: var(--color-white);
+  color: var(--color-black);
+  font-family: "Bitcount Prop Single", monospace;
+}
+
+.setView__score-number:focus {
+  outline: none;
+  border-color: var(--color-blue);
+}
+
+.setView__score-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.setView__score-btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #ccc;
+  background: var(--color-white);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.setView__score-btn:hover {
+  background: #f0f0f0;
+  border-color: var(--color-blue);
+}
+
+.setView__score-btn svg {
+  color: #666;
+}
+
+/* Action Section */
+.setView__action-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.setView__action-btn {
+  background: var(--color-blue);
+  color: var(--color-white);
+  border: none;
+  border-radius: 24px;
+  padding: 12px 32px;
+  font-size: 1.6rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 200ms ease;
+  min-width: 200px;
+  font-family: "Bitcount Prop Single", monospace;
+}
+
+.setView__action-btn:hover:not(:disabled) {
+  background: #1a00b3;
+  transform: translateY(-1px);
+}
+
+.setView__action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.setView__action-btn--new-round {
+  background: var(--color-blue);
+}
+
+.setView__saved-indicator {
+  font-size: 1.4rem;
+  color: #28a745;
+  font-weight: 500;
+}
+
+/* Leaderboard */
+.setView__leaderboard {
+  background: var(--color-white);
+  border: 2px solid var(--color-blue);
+  border-radius: 16px;
+  padding: 24px 20px;
+}
+
+.setView__leaderboard-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--color-black);
+  margin: 0 0 20px;
+  font-family: "Bitcount Prop Single", monospace;
+}
+
+.setView__leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.setView__leaderboard-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.setView__leaderboard-rank {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-black);
+  min-width: 24px;
+  font-family: "Bitcount Prop Single", monospace;
+}
+
+.setView__leaderboard-name {
+  flex: 1;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--color-black);
+  font-family: "Bitcount Prop Single", monospace;
+}
+
+.setView__leaderboard-score {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--color-blue);
+  font-family: "Bitcount Prop Single", monospace;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .setView {
+    padding: 12px;
+  }
+  
+  .setView__title {
+    font-size: 3.2rem;
+  }
+  
+  .setView__track-title {
+    font-size: 2.4rem;
+  }
+  
+  .setView__header {
+    padding: 20px 16px;
+  }
+  
+  .setView__scores-section,
+  .setView__leaderboard {
+    padding: 20px 16px;
+  }
 }

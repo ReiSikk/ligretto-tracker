@@ -226,7 +226,7 @@ function CreateGameSet({ onClose, onCreateGame }: CreateGameSetProps) {
               value={newPlayerName}
               onChange={(e) => setNewPlayerName(e.target.value)}
               disabled={isAddingPlayer || isCreating}
-              onKeyPress={(e) => e.key === 'Enter' && addNewPlayer()}
+              onKeyUp={(e) => e.key === 'Enter' && addNewPlayer()}
             />
             <button 
               className="createGameSet__add-player-btn"
