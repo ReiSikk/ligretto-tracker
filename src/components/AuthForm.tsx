@@ -29,7 +29,7 @@ function AuthForm ({ isLogin: initialIsLogin = true }: AuthFormProps) {
 
         if (loginError) throw loginError
 
-        navigate('/dashboard')
+        navigate('/')
       } else {
         // Signup
         const { data, error: signupError } = await supabase.auth.signUp({
@@ -49,7 +49,7 @@ function AuthForm ({ isLogin: initialIsLogin = true }: AuthFormProps) {
         if (data.user?.identities?.length === 0) {
           setError('Please check your email for confirmation')
         } else {
-          navigate('/dashboard')
+          navigate('/')
         }
       }
     } catch (err: any) {

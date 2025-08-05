@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router, 
   Routes, 
   Route, 
-  Navigate 
 } from 'react-router-dom'
 import { createClient } from '@supabase/supabase-js'
 import { SessionContextProvider } from '@supabase/auth-helpers-react'
@@ -25,9 +24,8 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/login" element={<AuthForm isLogin={true} />} />
           <Route path="/signup" element={<AuthForm isLogin={false} />} />
-          <Route path="/dashboard" element={<PrivateRoute />} />
           <Route path="/set/:setId" element={<SetView />} />
-          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/" element={<PrivateRoute />} />
         </Routes>
       </Router>
     </SessionContextProvider>

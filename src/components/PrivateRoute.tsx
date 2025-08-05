@@ -23,7 +23,7 @@ import type { PostgrestError } from '@supabase/supabase-js'
 }
 
 const PrivateRoute: React.FC = () => {
-  const { session } = useSessionContext()
+  const { session, isLoading: sessionLoading } = useSessionContext()
   const [gameSets, setGameSets] = useState<GameSet[]>([])
   console.log('Game sets', gameSets);
   const [isLoading, setIsLoading] = useState(true);
@@ -84,10 +84,15 @@ const PrivateRoute: React.FC = () => {
   }
 }, [session?.user]);
 
- // Initial load
+
+  // Initial load - only fetch when we have a session
   useEffect(() => {
-    fetchGameSets();
-  }, [fetchGameSets]);
+    if (session) {
+      fetchGameSets();
+    } else if (!sessionLoading) {
+      setIsLoading(false);
+    }
+  }, [fetchGameSets, session, sessionLoading]);
 
 
   // Handler for when a new game set is created
@@ -101,13 +106,14 @@ const PrivateRoute: React.FC = () => {
     await supabase.auth.signOut()
   }
 
-  if (isLoading) {
+  // Show loading while checking session or fetching data
+  if (sessionLoading || (session && isLoading)) {
     return <div>Loading...</div>
   }
 
-  // If no session, redirect to login
+  // If no session after loading is complete, redirect to login
   if (!session) {
-    return <Navigate to="/login" />
+    return <Navigate to="/login" replace />
   }
 
   return (
