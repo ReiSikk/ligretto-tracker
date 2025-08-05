@@ -1,69 +1,40 @@
-# React + TypeScript + Vite
+# Ligretto Tracker 🎯
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern web application for tracking scores in the fast-paced card game Ligretto. Keep score across multiple rounds, manage player leaderboards, and never lose track of who's winning!
 
-Currently, two official plugins are available:
+## 📖 About Ligretto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Ligretto is a real-time card game where players race to get rid of their cards by playing them onto shared piles. This app helps you track scores across multiple rounds and maintain running totals for tournament-style play.
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Game Set Management** - Create and organize multiple scoring sessions
+- **Player Management** - Add players and reuse them across different games
+- **Round-by-Round Scoring** - Track individual round scores (-10 to +40 points)
+- **Live Leaderboards** - See cumulative scores and rankings in real-time
+- **Responsive Design** - Works seamlessly on desktop and mobile devices
+- **Persistent Data** - All scores and games are saved in the cloud
+- **User Authentication** - Secure login with email/password
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### Frontend
+- **React 18** - Modern React with hooks and functional components
+- **TypeScript** - Full type safety throughout the application
+- **Vite** - Lightning-fast build tool and dev server
+- **React Router** - Client-side routing with protected routes
+- **Lucide React** - Beautiful, consistent icons
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Backend & Database
+- **Supabase** - Backend-as-a-Service with PostgreSQL database
+- **Supabase Auth** - User authentication and session management
+- **Row Level Security (RLS)** - Database-level security policies
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Deployment
+- **Vercel** - Serverless deployment with automatic builds
+- **Git-based CI/CD** - Automatic deployments on push to main branch
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Development Tools
+- **ESLint** - Code linting and style enforcement
+- **CSS3** - Custom styling with Flexbox and Grid
+- **Git** - Version control
