@@ -21,11 +21,9 @@ interface GameSetCardProps {
 }
 
 
-
 function GameSetCard({ title, players, gameSet }: GameSetCardProps) {
   const navigate = useNavigate()
   const [playersWithScores, setPlayersWithScores] = useState<Player[]>([])
-  console.log('playersWithScores:', playersWithScores);
   const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
@@ -37,70 +35,54 @@ function GameSetCard({ title, players, gameSet }: GameSetCardProps) {
    const fetchPlayersAndScores = async () => {
     try {
       // Get all games for this game set
-      const { data: gamesData, error: gamesError } = await supabase
-        .from('games')
-        .select('id')
+      const { data: scoresData, error: scoresError } = await supabase
+        .from('game_scores')
+        .select('player_id, score')
         .eq('game_set_id', gameSet.id)
 
-      if (gamesError) throw gamesError
+      if (scoresError) throw scoresError
 
-      if (gamesData && gamesData.length > 0) {
-        const gameIds = gamesData.map(game => game.id)
+      // Calculate player total scores
+      const playerTotals = new Map<string, number>()
 
-        // Fetch all scores for all games in this set
-        const { data: scoresData, error: scoresError } = await supabase
-          .from('game_scores')
-          .select('player_id, score')
-          .in('game_id', gameIds)
+      // Init players with 0 score
+      players.forEach(player => {
+        playerTotals.set(player.id, 0)
+      })
 
-        if (scoresError) throw scoresError
+         // Add up scores from all rounds
+      scoresData?.forEach(score => {
+        const current = playerTotals.get(score.player_id) || 0
+        playerTotals.set(score.player_id, current + score.score)
+      })
 
-        // Calculate total scores for each player
-        const playerTotals = new Map<string, number>()
+      // Create players array with total scores
+      const playersWithTotalScores = players.map(player => ({
+        ...player,
+        totalScore: playerTotals.get(player.id) || 0
+      }))
 
-        // Initialize all players with 0 score
-        players.forEach(player => {
-          playerTotals.set(player.id, 0)
-        })
+      // Sort by total score (highest first)
+      playersWithTotalScores.sort((a, b) => (b.totalScore || 0) - (a.totalScore || 0))
 
-        // Add up scores from all games
-        scoresData?.forEach(score => {
-          const current = playerTotals.get(score.player_id) || 0
-          playerTotals.set(score.player_id, current + score.score)
-        })
-
-        // Create players array with total scores
-        const playersWithTotalScores = players.map(player => ({
-          ...player,
-          totalScore: playerTotals.get(player.id) || 0
-        }))
-
-        // Sort by total score (highest first)
-        playersWithTotalScores.sort((a, b) => (b.totalScore || 0) - (a.totalScore || 0))
-
-        setPlayersWithScores(playersWithTotalScores)
-      } else {
-        // No games yet, show players with 0 scores
-        const playersWithZeroScores = players.map(player => ({
-          ...player,
-          totalScore: 0
-        }))
-        setPlayersWithScores(playersWithZeroScores)
-      }
+      setPlayersWithScores(playersWithTotalScores)
 
     } catch (error) {
       console.error('Error fetching players and scores:', error)
-      // Set empty array on error
-      setPlayersWithScores([])
+
+      // Set players with 0 scores on error
+      const playersWithZeroScores = players.map(player => ({
+        ...player,
+        totalScore: 0
+      }))
+      setPlayersWithScores(playersWithZeroScores)
     } finally {
       setIsLoading(false)
     }
   }
 
-  
-
   const handleClick = () => {
-    navigate(`/set/${gameSet.id}`) // Navigate to SetView with the set ID
+    navigate(`/set/${gameSet.id}`)
   }
 
     const formatDate = (dateString: string) => {
@@ -146,7 +128,9 @@ function GameSetCard({ title, players, gameSet }: GameSetCardProps) {
                   <span className="gameSetCard__player-name">{player.name}</span>
                 </td>
                 <td className="gameSetCard__table-cell gameSetCard__table-cell--score">
-                  {player.totalScore || 0}
+                  <span className="gameSetCard__table-score">
+                    {player.totalScore || 0}
+                  </span>
                 </td>
               </tr>
             ))}
