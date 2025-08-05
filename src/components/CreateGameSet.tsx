@@ -9,14 +9,21 @@ interface Player {
   name: string;
 }
 
+interface GameSet {
+  id: string;
+  name: string;
+  created_at: string;
+  players?: Player[];
+}
+
 interface CreateGameSetProps {
   onClose: () => void;
-  onCreateGame: (setName: string, selectedPlayers: string[]) => void;
+  onCreateGame: (gameSet: GameSet) => void;
 }
 
 function CreateGameSet({ onClose, onCreateGame }: CreateGameSetProps) {
   const { session } = useSessionContext()
-    const user = session?.user
+  const user = session?.user
   const [setName, setSetName] = useState('')
   const [selectedPlayers, setSelectedPlayers] = useState<string[]>([])
   const [isCreating, setIsCreating] = useState(false)
@@ -25,7 +32,7 @@ function CreateGameSet({ onClose, onCreateGame }: CreateGameSetProps) {
   const [newPlayerName, setNewPlayerName] = useState('')
   const [isAddingPlayer, setIsAddingPlayer] = useState(false)
 
-    // Fetch players on mount
+  // Fetch players on mount
   useEffect(() => {
     fetchPlayers()
   }, [])
@@ -139,7 +146,12 @@ function CreateGameSet({ onClose, onCreateGame }: CreateGameSetProps) {
         return
       }
 
-      onCreateGame(setName.trim(), selectedPlayers)
+    if (data && data[0]) {
+      onCreateGame(data[0])
+    } else {
+      throw new Error('No game set data returned')
+    }
+
     } catch (error) {
       console.error('Unexpected error:', error)
       alert('An unexpected error occurred. Please try again.')
