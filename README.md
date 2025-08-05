@@ -1,6 +1,6 @@
 # Ligretto Tracker 🎯
 
-A modern web application for tracking scores in the fast-paced card game Ligretto. Keep score across multiple rounds, manage player leaderboards, and never lose track of who's winning!
+A modern web application for tracking scores in the fast-paced card game Ligretto. Keep score across multiple rounds, manage player leaderboards, and never lose track of who's winning. Ligretto is one of my friend group's favorite games, but we've always struggled with keeping score using messy notes on someone's phone. I got tired of dealing with disorganized score tracking and decided to build this dedicated tracker to make our game nights smoother. It's been a fun small side project that solves a real problem we face while giving me a chance to have fun with coding.
 
 ## 📖 About Ligretto
 
