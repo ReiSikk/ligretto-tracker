@@ -264,8 +264,9 @@ function SetView() {
         </div>
       </div>
 
+      <main className="setView__main">
       {/* Scores Section */}
-      <div className="setView__scores-section">
+      <section className="setView__scores-section">
         <h3 className="setView__scores-title">ENTER SCORES</h3>
         
         <div className="setView__score-inputs">
@@ -321,7 +322,7 @@ function SetView() {
             {isSaving ? 'Saving round...' : `Save round ${currentRound}`}
           </button>
         </div>
-      </div>
+      </section>
 
       {/* Leaderboard */}
       <div className="setView__leaderboard">
@@ -336,6 +337,7 @@ function SetView() {
           ))}
         </div>
       </div>
+      </main>
     </div>
   )
 }

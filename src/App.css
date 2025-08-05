@@ -844,16 +844,15 @@ p,
 
 /* Header */
 .setView__header {
-  width: calc(100% + 32px);
-  margin-left: -16px;
   background: #0e1128;
+  padding-block: 16px;
+  padding-inline: 20px;
   color: var(--color-white);
   padding: 16px;
   margin-bottom: 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 100%;
 }
 
 .setView__title {
@@ -901,6 +900,7 @@ p,
   border-radius: 16px;
   padding: 20px;
   margin-bottom: 24px;
+  margin-inline: 20px;
 }
 
 .setView__game-title {
@@ -918,6 +918,9 @@ p,
 }
 
 /* Scores Section */
+.setView__main {
+  padding-inline: 20px;
+}
 .setView__scores-section {
   background: var(--color-white);
   border: 2px solid var(--color-blue);
@@ -1106,20 +1109,12 @@ input[type="number"] {
 
 /* Mobile responsiveness */
 @media (max-width: 480px) {
-  .setView {
-    padding: 12px;
-  }
-
   .setView__title {
     font-size: 3.2rem;
   }
 
   .setView__track-title {
     font-size: 2.4rem;
-  }
-
-  .setView__header {
-    padding: 20px 16px;
   }
 
   .setView__scores-section,
