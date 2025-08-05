@@ -1,7 +1,6 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding-inline: 1.6rem;
   text-align: center;
   font-family: "Arial", sans-serif;
   /** Colors **/
@@ -28,7 +27,8 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: "Inter", sans-serif;
+  font-family: "Jura", sans-serif;
+  font-optical-sizing: auto;
   background-color: var(--color-white);
   color: var(--color-black);
   min-width: 320px;
@@ -191,7 +191,8 @@ body {
 h1,
 .h1 {
   font-size: clamp(2.2rem, 3vw, 2.4rem);
-  font-family: "Bitcount Prop Single", system-ui;
+  /* font-family: "Bitcount Prop Single", system-ui; */
+  font-family: "Jura", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -212,83 +213,70 @@ p,
     ========================================================================== */
 
 .siteHeader {
-  width: calc(100% + 32px);
-  margin-left: -16px;
-  background: var(--color-blue);
+  background: #0e1128;
   color: var(--color-white);
   padding-block: 16px;
+  padding-inline: 20px;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 16px;
 }
 
 .siteHeader__title {
   font-size: 3.2rem;
+  font-weight: 700;
+  text-wrap: wrap;
 }
-
+.siteHeader__btn {
+  height: fit-content;
+  @media only screen and (max-width: 767px) {
+    min-width: fit-content;
+  }
+}
 
 /*
    Site Main
    ========================================================================== */
-  .siteMain {
+.siteMain {
+}
+.siteMain__top {
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 24px;
+  padding-inline: 20px;
+}
+.siteMain__title {
+  font-family: "Inter", sans-serif;
+}
+.siteMain__content {
+  max-width: 100%;
+  margin-bottom: 75px;
+  padding-inline: 20px;
 
+  ul {
+    justify-content: center;
+    gap: 16px;
   }
-  .siteMain__top {
-    justify-content: space-between;
-    align-items: center;
-    padding-block: 24px;
-  }
-  .siteMain__title {
-    font-family: 'Inter', sans-serif;
-
-  }
-  .siteMain__content {
-    max-width: 100%;
-    margin-bottom: 63px;
-
-    ul {
-      justify-content: center;
-    }
-
-  }
-
-
-  /*
-    Site Footer
-     ========================================================================== */
-    .siteFooter {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: var(--color-white);
-      border-top: 1px solid var(--color-blue);
-      padding: 16px 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-
-    }
-    .siteFooter__nav {
-
-    }
-    .siteFooter__nav-item {
-
-    }
-     
-  
+}
 
 /*
    GameSetCard
    ========================================================================== */
 .gameSetCard {
-  background: var(--color-white);
-  border: 1px solid var(--color-blue);
+  background: #0e1128;
+  color: var(--color-white);
   border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
-  font-family: "Bitcount Prop Single", monospace;
+  padding: 20px;
+  font-family: "Jura", sans-serif;
   max-width: 500px;
   width: 100%;
   cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #181a2b;
+  }
 }
 
 .gameSetCard__header {
@@ -297,8 +285,8 @@ p,
 
 .gameSetCard__title {
   font-size: 1.8rem;
-  font-weight: 400;
-  color: var(--color-black);
+  font-weight: 700;
+  color: var(--color-white);
   margin: 0;
   text-align: left;
 }
@@ -316,8 +304,9 @@ p,
   padding: 12px 0;
   font-size: 1.2rem;
   font-weight: 500;
-  color: var(--color-black);
+  color: var(--color-white);
   text-align: left;
+  letter-spacing: 0.3px;
 }
 
 .gameSetCard__table-header-cell--score {
@@ -326,28 +315,37 @@ p,
 
 .gameSetCard__table-row {
   border-bottom: 1px solid transparent;
+  &:first-of-type {
+    .gameSetCard__table-cell {
+      padding-top: 24px;
+    }
+  }
 }
 
 .gameSetCard__table-cell {
   padding: 8px 16px;
   font-size: 1.4rem;
-  color: var(--color-black);
+  color: var(--color-white);
   text-align: left;
 }
 
 .gameSetCard__table-cell--score {
   text-align: right;
+}
+.gameSetCard__table-score,
+.setView__leaderboard-score {
   color: var(--color-blue);
-  font-weight: 300;
+  background: var(--color-white);
+  font-weight: 600;
+  font-family: "Jura", sans-serif;
   font-size: 1.6rem;
+  padding: 4px 8px;
+  border-radius: 4px;
 }
 
 .gameSetCard__player-name {
   font-size: 1.6rem;
-  font-weight: 300;
-  color: var(--color-black);
 }
-
 
 /*
    CreateGameSet
@@ -362,7 +360,7 @@ p,
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .createGameSet__header {
@@ -430,7 +428,7 @@ p,
   font-weight: 400;
   color: var(--color-black);
   margin: 0 0 8px;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .createGameSet__subtitle {
@@ -459,7 +457,7 @@ p,
   border: 1px solid var(--color-black);
   border-radius: 8px;
   font-size: 1.4rem;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   background: var(--color-white);
   color: var(--color-black);
 }
@@ -490,7 +488,7 @@ p,
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: "Bitcount Prop Single", monospace;
+  font-family: "Jura", sans-serif;
 }
 
 .createGameSet__selected-player button {
@@ -515,7 +513,7 @@ p,
   border: 1px solid var(--color-black);
   border-radius: 8px;
   background: var(--color-white);
-  font-family: "Bitcount Prop Single", monospace;
+  font-family: "Jura", sans-serif;
   font-size: 1.4rem;
   color: var(--color-black);
   cursor: pointer;
@@ -539,7 +537,7 @@ p,
   font-size: 1.4rem;
   cursor: pointer;
   padding: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .createGameSet__footer {
@@ -665,7 +663,7 @@ p,
   color: var(--color-black);
   margin: 0 0 24px;
   text-align: center;
-  font-family: "Bitcount Prop Single", monospace;
+  font-family: "Jura", sans-serif;
 }
 
 .error-message {
@@ -693,7 +691,7 @@ p,
   border-opacity: 0.2;
   border-radius: 8px;
   font-size: 1.4rem;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   background: var(--color-white);
   color: var(--color-black);
   margin-bottom: 16px;
@@ -728,7 +726,7 @@ p,
   cursor: pointer;
   transition: all 200ms ease;
   margin-bottom: 16px;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .submit-button:hover:not(:disabled) {
@@ -758,7 +756,7 @@ p,
   padding: 8px;
   text-align: center;
   transition: opacity 200ms ease;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .toggle-button:hover:not(:disabled) {
@@ -777,12 +775,12 @@ p,
     padding: 24px;
     border-radius: 8px;
   }
-  
+
   .name-inputs {
     grid-template-columns: 1fr;
     gap: 0;
   }
-  
+
   .name-inputs .input-field {
     margin-bottom: 16px;
   }
@@ -802,7 +800,7 @@ p,
 }
 
 .submit-button:disabled::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -816,21 +814,20 @@ p,
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-
 
 /*
    SetView Component
    ========================================================================== */
 .setView {
   min-height: 100vh;
-  background: var(--color-white);
-  padding: 16px;
-  font-family: 'Inter', sans-serif;
-  max-width: 480px;
-  margin: 0 auto;
+  margin-bottom: 64px;
 }
 
 .setView--loading,
@@ -841,31 +838,33 @@ p,
   flex-direction: column;
   gap: 16px;
   font-size: 1.6rem;
-  color: var(--color-black);
+  color: var(--color-white);
   text-align: center;
 }
 
 /* Header */
 .setView__header {
-  background: var(--color-blue);
+  width: calc(100% + 32px);
+  margin-left: -16px;
+  background: #0e1128;
   color: var(--color-white);
-  padding: 24px 20px;
-  border-radius: 16px;
+  padding: 16px;
   margin-bottom: 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: 100%;
 }
 
 .setView__title {
   font-size: 4rem;
   font-weight: 400;
-  font-family: "Bitcount Prop Single", monospace;
+  font-family: "Jura", sans-serif;
   letter-spacing: -0.02em;
 }
 
 .setView__back-btn {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--color-blue);
   border: none;
   border-radius: 20px;
   padding: 8px 16px;
@@ -875,11 +874,12 @@ p,
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: background 200ms ease;
+  transition: all 200ms ease;
 }
 
 .setView__back-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--color-white);
+  color: var(--color-black);
 }
 
 /* Track Game Section */
@@ -892,13 +892,12 @@ p,
   font-weight: 400;
   color: var(--color-black);
   margin: 0;
-  font-family: "Bitcount Prop Single", monospace;
+  font-family: "Jura", sans-serif;
 }
 
 /* Game Info */
 .setView__game-info {
   background: var(--color-white);
-  border: 2px solid var(--color-blue);
   border-radius: 16px;
   padding: 20px;
   margin-bottom: 24px;
@@ -909,14 +908,13 @@ p,
   font-weight: 600;
   color: var(--color-black);
   margin-bottom: 8px;
-  font-family: "Bitcount Prop Single", monospace;
+  font-family: "Jura", sans-serif;
 }
 
 .setView__rounds-info {
   font-size: 1.4rem;
   color: var(--color-black);
   opacity: 0.7;
-  text-align: right;
 }
 
 /* Scores Section */
@@ -934,7 +932,7 @@ p,
   color: var(--color-black);
   margin: 0 0 24px;
   letter-spacing: 0.05em;
-  font-family: "Bitcount Prop Single", monospace;
+  font-family: "Jura", sans-serif;
 }
 
 .setView__score-inputs {
@@ -955,7 +953,7 @@ p,
   font-size: 1.6rem;
   font-weight: 400;
   color: var(--color-black);
-  font-family: "Bitcount Prop Single", monospace;
+  font-family: "Jura", sans-serif;
   flex: 1;
 }
 
@@ -967,7 +965,7 @@ p,
 
 .setView__score-number {
   width: 60px;
-  height: 40px;
+  height: 56px;
   border: 1px solid #ccc;
   border-radius: 8px;
   text-align: center;
@@ -975,7 +973,17 @@ p,
   font-weight: 500;
   background: var(--color-white);
   color: var(--color-black);
-  font-family: "Bitcount Prop Single", monospace;
+  font-family: "Jura", sans-serif;
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .setView__score-number:focus {
@@ -986,12 +994,12 @@ p,
 .setView__score-buttons {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 8px;
 }
 
 .setView__score-btn {
-  width: 28px;
-  height: 28px;
+  width: 48px;
+  height: 48px;
   border: 1px solid #ccc;
   background: var(--color-white);
   border-radius: 4px;
@@ -1030,7 +1038,7 @@ p,
   cursor: pointer;
   transition: all 200ms ease;
   min-width: 200px;
-  font-family: "Bitcount Prop Single", monospace;
+  font-family: "Jura", sans-serif;
 }
 
 .setView__action-btn:hover:not(:disabled) {
@@ -1056,7 +1064,8 @@ p,
 
 /* Leaderboard */
 .setView__leaderboard {
-  background: var(--color-white);
+  background: #0e1128;
+  color: var(--color-white);
   border: 2px solid var(--color-blue);
   border-radius: 16px;
   padding: 24px 20px;
@@ -1065,9 +1074,8 @@ p,
 .setView__leaderboard-title {
   font-size: 1.6rem;
   font-weight: 600;
-  color: var(--color-black);
   margin: 0 0 20px;
-  font-family: "Bitcount Prop Single", monospace;
+  font-family: "Jura", sans-serif;
 }
 
 .setView__leaderboard-list {
@@ -1085,25 +1093,15 @@ p,
 
 .setView__leaderboard-rank {
   font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--color-black);
   min-width: 24px;
-  font-family: "Bitcount Prop Single", monospace;
+  font-family: "Jura", sans-serif;
 }
 
 .setView__leaderboard-name {
   flex: 1;
   font-size: 1.4rem;
   font-weight: 400;
-  color: var(--color-black);
-  font-family: "Bitcount Prop Single", monospace;
-}
-
-.setView__leaderboard-score {
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: var(--color-blue);
-  font-family: "Bitcount Prop Single", monospace;
+  font-family: "Jura", sans-serif;
 }
 
 /* Mobile responsiveness */
@@ -1111,19 +1109,19 @@ p,
   .setView {
     padding: 12px;
   }
-  
+
   .setView__title {
     font-size: 3.2rem;
   }
-  
+
   .setView__track-title {
     font-size: 2.4rem;
   }
-  
+
   .setView__header {
     padding: 20px 16px;
   }
-  
+
   .setView__scores-section,
   .setView__leaderboard {
     padding: 20px 16px;

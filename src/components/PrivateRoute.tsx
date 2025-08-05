@@ -2,7 +2,7 @@ import '../App.css'
 import React, { useState, useEffect, useCallback } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useSessionContext } from '@supabase/auth-helpers-react'
-import { LucidePlus } from 'lucide-react'
+import { LucideLogOut, LucidePlus } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import GameSetCard from './GameSetCard'
 import CreateGameSet from './CreateGameSet'
@@ -34,7 +34,6 @@ const PrivateRoute: React.FC = () => {
   if (!session?.user) return;
 
   try {
-    // Explicitly type the Promise.all results
     const [gameSetsResult, playersResult] = await Promise.all([
       supabase
         .from('game_sets')
@@ -114,8 +113,17 @@ const PrivateRoute: React.FC = () => {
   return (
     <>
       <div className="wrapper">
-        <header className="siteHeader">
+        <header className="siteHeader fp">
           <h1 className='siteHeader__title'>Ligretto Tracker</h1>
+           <button 
+              className="btn-main siteHeader__btn p fp"
+              onClick={handleLogout}
+            >
+              Logout
+                <div className="icon fp">
+                  <LucideLogOut height={16} width={16} />
+              </div>
+            </button>
         </header>
         <main className='siteMain'>
           <div className="siteMain__top fp">
@@ -150,24 +158,16 @@ const PrivateRoute: React.FC = () => {
                   onClick={() => setShowCreateGameSet(true)}
                 >
                   Create Your First Set
+                   <div className="icon fp">
+                    <LucidePlus height={16} width={16} />
+                  </div>
                 </button>
               </div>
             )}
           </section>
         </main>
         <footer className="siteFooter">
-          <nav className="siteFooter__nav">
-            <ul className="list-flex">
-              <li className="siteFooter__nav-item">
-                <button 
-                  className="btn-main p fp"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
-              </li>
-            </ul>
-          </nav>
+         
         </footer>
       </div>
       {showCreateGameSet && (
