@@ -228,8 +228,8 @@ function SetView() {
     return (
       <div className="setView setView--error">
         <p>Game set not found</p>
-        <button onClick={() => navigate('/dashboard')} className="btn-main">
-          Back to Dashboard
+        <button onClick={() => navigate('/')} className="btn-main">
+          Back to home
         </button>
       </div>
     )
@@ -242,22 +242,18 @@ function SetView() {
         <div className="setView__title">Ligretto</div>
         <button 
           className="setView__back-btn"
-          onClick={() => navigate('/dashboard')}
+          onClick={() => navigate('/')}
         >
           <ArrowLeft size={16} />
           Back to sets
         </button>
       </div>
 
-      {/* Track Game Section */}
-      <div className="setView__track-section">
-        <h2 className="setView__track-title">Track game</h2>
-      </div>
-
       {/* Game Info */}
       <div className="setView__game-info">
-        <div className="setView__game-title">
-          Round {currentRound} - {gameSet.name}
+        <div className="setView__game-title fp-col">
+          <span className=''>{gameSet.name}</span>
+          <span>Round {currentRound}</span>
         </div>
         <div className="setView__rounds-info">
           {roundsCompleted} rounds completed

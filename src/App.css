@@ -117,6 +117,44 @@ body {
   text-transform: uppercase;
 }
 
+/* Loading state styles */
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  z-index: 1000;
+}
+
+.loading h2,
+.loading .loading__text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1rem 0 0 0;
+  color: #333;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /*
    Media helpers
    ========================================================================== */
@@ -221,6 +259,10 @@ p,
   align-items: center;
   flex-wrap: nowrap;
   gap: 16px;
+  &.center {
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .siteHeader__title {
@@ -639,12 +681,10 @@ p,
    AuthForm Component
    ========================================================================== */
 .auth-container {
-  min-height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-  background: var(--color-white);
   padding: 16px;
+  margin-top: 16px;
 }
 
 .auth-form {
@@ -881,24 +921,8 @@ p,
   color: var(--color-black);
 }
 
-/* Track Game Section */
-.setView__track-section {
-  margin-bottom: 24px;
-}
-
-.setView__track-title {
-  font-size: 3.2rem;
-  font-weight: 400;
-  color: var(--color-black);
-  margin: 0;
-  font-family: "Jura", sans-serif;
-}
-
 /* Game Info */
 .setView__game-info {
-  background: var(--color-white);
-  border-radius: 16px;
-  padding: 20px;
   margin-bottom: 24px;
   margin-inline: 20px;
 }
@@ -907,12 +931,28 @@ p,
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--color-black);
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   font-family: "Jura", sans-serif;
+
+  span:first-of-type {
+    margin-bottom: 12px;
+    font-size: 1.8rem;
+    font-weight: 400;
+  }
+  span:last-of-type {
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    background: var(--color-blue);
+    color: var(--color-white);
+    border-radius: 4px;
+    width: fit-content;
+    margin-inline: auto;
+  }
 }
 
 .setView__rounds-info {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: var(--color-black);
   opacity: 0.7;
 }
@@ -931,7 +971,7 @@ p,
 
 .setView__scores-title {
   font-size: 1.4rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-black);
   margin: 0 0 24px;
   letter-spacing: 0.05em;
@@ -1042,6 +1082,10 @@ input[type="number"] {
   transition: all 200ms ease;
   min-width: 200px;
   font-family: "Jura", sans-serif;
+
+  @media only screen and (max-width: 767px) {
+    width: 100%;
+  }
 }
 
 .setView__action-btn:hover:not(:disabled) {
@@ -1069,7 +1113,6 @@ input[type="number"] {
 .setView__leaderboard {
   background: #0e1128;
   color: var(--color-white);
-  border: 2px solid var(--color-blue);
   border-radius: 16px;
   padding: 24px 20px;
 }

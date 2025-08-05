@@ -19,7 +19,6 @@ function CreateGameSet({ onClose, onCreateGame }: CreateGameSetProps) {
     const user = session?.user
   const [setName, setSetName] = useState('')
   const [selectedPlayers, setSelectedPlayers] = useState<string[]>([])
-  console.log('Selected Players:', selectedPlayers);
   const [isCreating, setIsCreating] = useState(false)
   const [existingPlayers, setExistingPlayers] = useState<Player[]>([])
   const [isLoadingPlayers, setIsLoadingPlayers] = useState(true)
@@ -140,7 +139,6 @@ function CreateGameSet({ onClose, onCreateGame }: CreateGameSetProps) {
         return
       }
 
-      console.log('Game set created:', data)
       onCreateGame(setName.trim(), selectedPlayers)
     } catch (error) {
       console.error('Unexpected error:', error)

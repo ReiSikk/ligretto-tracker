@@ -25,7 +25,6 @@ import type { PostgrestError } from '@supabase/supabase-js'
 const PrivateRoute: React.FC = () => {
   const { session, isLoading: sessionLoading } = useSessionContext()
   const [gameSets, setGameSets] = useState<GameSet[]>([])
-  console.log('Game sets', gameSets);
   const [isLoading, setIsLoading] = useState(true);
   const [showCreateGameSet, setShowCreateGameSet] = useState(false);
   
