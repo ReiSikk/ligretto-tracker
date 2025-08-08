@@ -1,30 +1,17 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowLeft, ChevronUp, ChevronDown } from 'lucide-react'
+import { ArrowLeft, ChevronUp, ChevronDown, PlusCircle, LucideX } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import { useSessionContext } from '@supabase/auth-helpers-react'
+import { useGameSets } from '../providers/GameSetContext' 
+import type { GameSet } from '../lib/types'
+import type { Admin } from '../lib/types'
+import type { Score } from '../lib/types'
+
 
 interface Player {
   id: string;
   name: string;
-}
-
-interface GameSet {
-  id: string;
-  name: string;
-  created_at: string;
-  player_ids?: string[];
-}
-
-interface Score {
-  id?: string;
-  game_set_id: string;
-  player_id: string;
-  score: number;
-  round_number: number;
-  user_id: string;
-  created_at?: string;
-  player?: Player;
 }
 
 interface LocalScore {
@@ -34,25 +21,44 @@ interface LocalScore {
 }
 
 function SetView() {
-  const { setId } = useParams<{ setId: string }>()
   const navigate = useNavigate()
+  // Get the current session and user ID
   const { session } = useSessionContext()
   const userId = session?.user?.id
+  const { setId } = useParams<{ setId: string }>()
 
-  // Simplified state
   const [gameSet, setGameSet] = useState<GameSet | null>(null)
   const [players, setPlayers] = useState<Player[]>([])
+  // Local scores for the current round
   const [currentScores, setCurrentScores] = useState<LocalScore[]>([])
   const [allScores, setAllScores] = useState<Score[]>([])
   const [currentRound, setCurrentRound] = useState(1)
+  // UI loading states
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
+  // Admin management states
+  const [newAdminEmail, setNewAdminEmail] = useState('')
+  const [adminModalOpen, setAdminModalOpen] = useState(false)
+  const [allAdmins, setAllAdmins] = useState<Admin[]>([])
+  const [currentUserIsAdmin, setCurrentUserIsAdmin] = useState(false)
 
-  useEffect(() => {
+  const { 
+    loading: contextLoading, 
+    getAdminsByIds,
+    addAdmin,
+    removeAdmin
+
+  } = useGameSets()
+
+   useEffect(() => {
+    // If context is loading, wait
+    if (contextLoading) return
+
+    // Existing data fetching logic
     if (setId) {
       fetchSetData()
     }
-  }, [setId])
+  }, [setId, contextLoading, userId])
 
   const fetchSetData = async () => {
     try {
@@ -66,6 +72,32 @@ function SetView() {
       if (setError) throw setError
       setGameSet(setData)
 
+      // Check if current user is an admin (creator or secondary admin)
+      const isCreator = setData.user_id === userId
+      const isSecondaryAdmin = setData.admin_ids?.includes(userId) || false
+      
+      // Set if current user is admin
+      setCurrentUserIsAdmin(isCreator || isSecondaryAdmin)
+
+      // Fetch ALL admin data (creator + secondary admins)
+      const allAdminIds = [setData.user_id]
+      if (setData.admin_ids && setData.admin_ids.length > 0) {
+        allAdminIds.push(...setData.admin_ids)
+      }
+      
+      // Remove duplicates and fetch admin details
+      const uniqueAdminIds = [...new Set(allAdminIds)]
+
+      if (uniqueAdminIds.length > 0) {
+        try {
+          const adminData = await getAdminsByIds(uniqueAdminIds)
+          setAllAdmins(adminData)
+        } catch (error) {
+          console.error('Failed to fetch admin data:', error)
+          setAllAdmins([])
+        }
+      }
+
       // Fetch players for this set
       if (setData.player_ids && setData.player_ids.length > 0) {
         const { data: playersData, error: playersError } = await supabase
@@ -77,10 +109,9 @@ function SetView() {
         const playersList = playersData || []
         setPlayers(playersList)
 
-        // Initialize scores
+        // Init scores
         resetScores(playersList)
 
-        // Fetch all historical scores
         await fetchAllScores()
       }
 
@@ -88,6 +119,61 @@ function SetView() {
       console.error('Error fetching set data:', error)
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  // Helper function to check if current user is the creator
+  const isCreator = () => {
+    return gameSet?.user_id === userId
+  }
+
+  const handleAddAdminSubmit = async () => {
+    if (!setId || !newAdminEmail.trim()) return
+
+    try {
+      await addAdmin(setId, newAdminEmail.trim())
+      
+      // Reset modal and email
+      setNewAdminEmail('')
+      setAdminModalOpen(false)
+    } catch (error){
+      console.error('Failed to add admin:', error)
+      // Show error to user
+      alert('Failed to add admin. Please try again.')
+    }
+  }
+
+    // Updated handleRemoveAdmin function
+  const handleRemoveAdmin = async (adminIdToRemove: string) => {
+    if (!setId || !gameSet) return
+
+    // Prevent removing the creator
+    if (adminIdToRemove === gameSet.user_id) {
+      alert('Cannot remove the creator from admin list')
+      return
+    }
+
+    // Find admin info for confirmation
+    const adminToRemove = allAdmins.find(admin => admin.id === adminIdToRemove)
+    const adminName = adminToRemove?.user_metadata?.first_name || adminToRemove?.email?.split('@')[0]
+    
+    // Confirm removal
+    if (!confirm(`Remove ${adminName} as admin?`)) {
+      return
+    }
+
+    try {
+      // Use the RPC function
+      await removeAdmin(setId, adminIdToRemove)
+      
+      // Refresh the data to show updated admin list
+      await fetchSetData()
+      
+      alert('Admin removed successfully')
+
+    } catch (error) {
+      console.error('Failed to remove admin:', error)
+      // Error handling is done in the context function
     }
   }
 
@@ -250,14 +336,64 @@ function SetView() {
       </div>
 
       {/* Game Info */}
-      <div className="setView__game-info">
-        <div className="setView__game-title fp-col">
-          <span className=''>{gameSet.name}</span>
-          <span>Round {currentRound}</span>
-        </div>
-        <div className="setView__rounds-info">
-          {roundsCompleted} rounds completed
-        </div>
+      <div className="setView__game-info fp">
+          <div className="setView__game-title fp-col">
+            <span className=''>{gameSet.name}</span>
+            <span>Round {currentRound}</span>
+            <div className="setView__rounds-info">
+              {roundsCompleted} rounds completed
+            </div>
+          </div>
+         <div className="setView__admin-section fp-col">
+            <div className="setView__admin-info">
+              <span className="setView__admin-label">
+                Admin{allAdmins.length > 1 ? 's' : ''}
+              </span>
+             {allAdmins.map((admin) => (
+                <div key={admin.id} className="setView__admin-item fp">
+                  <span className="setView__admin-name">
+                    {admin.user_metadata?.first_name}
+                  </span>
+                  <span className="setView__admin-email">{admin.email}</span>
+                   {gameSet?.user_id === admin.id && (
+                      <span className="setView__creator-label">Set Creator</span>
+                    )}
+                  {isCreator() && admin.id !== gameSet?.user_id && (
+                    <button 
+                      className="setView__remove-admin-btn"
+                      onClick={() => handleRemoveAdmin(admin.id || '')}
+                      title="Remove admin"
+                    >
+                      <LucideX size={16} />
+                    </button>
+                  )}
+                </div>
+              ))}
+
+                <div className={`setView__modal ${adminModalOpen ? 'open' : ''}`}>
+                  <h3>Add Admin</h3>
+                  <input
+                    type="email"
+                    placeholder="Enter admin email"
+                    value={newAdminEmail}
+                    onChange={(e) => setNewAdminEmail(e.target.value)}
+                  />
+                  <div className="setView__modal-btns fp">
+                    <button onClick={() => setAdminModalOpen(false)}>Cancel</button>
+                    <button onClick={handleAddAdminSubmit}>Add</button>
+                  </div>
+                </div>
+            </div>
+            {currentUserIsAdmin && (
+              <button 
+                className="setView__admin-btn btn-main"
+                onClick={() => setAdminModalOpen(true)}
+              >
+                <PlusCircle size={24} />
+                Add another admin
+              </button>
+            )}
+          </div>
       </div>
 
       <main className="setView__main">
