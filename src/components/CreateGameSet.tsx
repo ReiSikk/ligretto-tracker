@@ -134,7 +134,8 @@ function CreateGameSet({ onClose, onCreateGame }: CreateGameSetProps) {
             player_ids: selectedPlayers.map(name => {
               const player = existingPlayers.find(p => p.name === name)
               return player ? player.id : null
-            }).filter(id => id !== null)
+            }).filter(id => id !== null),
+            admin_ids: user ? [user.id] : []
 
           }
         ])
