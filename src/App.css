@@ -969,6 +969,8 @@ p,
   background: var(--color-blue);
   color: var(--color-white);
   border-radius: 4px;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
 .setView__remove-admin-btn {
@@ -988,6 +990,10 @@ p,
   margin-left: 8px;
   flex-shrink: 0;
 }
+.setView__remove-admin-btn svg path {
+  stroke: var(--color-white);
+
+}
 
 .setView__remove-admin-btn:hover {
   opacity: 0.85;
@@ -1002,6 +1008,7 @@ p,
   color: var(--color-black);
   opacity: 0.7;
   display: block;
+  text-decoration: none;
 }
 
 .setView__modal {
@@ -1092,6 +1099,7 @@ p,
   color: var(--color-black);
   font-weight: 600;
   font-family: "Jura", sans-serif;
+  text-decoration: none;
 }
 
 .setView__admin-btn {
@@ -1111,10 +1119,7 @@ p,
   color: var(--color-white);
 }
 
-.setView__add-admin-btn svg {
-  width: 14px;
-  height: 14px;
-}
+
 
 .setView__game-title {
   color: var(--color-black);
