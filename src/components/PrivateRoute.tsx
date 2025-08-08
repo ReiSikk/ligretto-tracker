@@ -7,20 +7,8 @@ import { supabase } from '../lib/supabase'
 import GameSetCard from './GameSetCard'
 import CreateGameSet from './CreateGameSet'
 import type { PostgrestError } from '@supabase/supabase-js'
-
-  interface Player {
-    id: string;
-    name: string;
-    score: number;
-}
-
-  interface GameSet {
-    id: string;
-    name: string;
-    created_at: string;
-    players?: Player[];
-    player_ids?: string[];
-}
+import type { GameSet } from '../lib/types'
+import type { Player } from '../lib/types'
 
 const PrivateRoute: React.FC = () => {
   const { session, isLoading: sessionLoading } = useSessionContext()
@@ -159,7 +147,7 @@ const PrivateRoute: React.FC = () => {
                 <h3>No game sets yet</h3>
                 <p>Create your first game set to start tracking Ligretto scores</p>
                 <button 
-                  className="btn-main"
+                  className="btn-main p"
                   onClick={() => setShowCreateGameSet(true)}
                 >
                   Create Your First Set
