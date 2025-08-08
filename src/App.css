@@ -1113,17 +1113,16 @@ p,
   font-family: "Jura", sans-serif;
   z-index: 2;
 }
+@media only screen and (min-width: 768px) and (max-width: 1024px), only screen and (min-width: 1025px) {
+    .setView__admin-btn {
+      max-width: 240px;
+      margin-left: auto; 
+  } 
+}
 
 .setView__add-admin-btn:hover {
   background: var(--color-black);
   color: var(--color-white);
-}
-
-@media only screen and (min-width: 768px) and (max-width: 1024px), only screen and (min-width: 1025px) {
-    .setView__add-admin-btn {
-      max-width: 240px;
-      margin-left: auto; 
-  } 
 }
 
 
