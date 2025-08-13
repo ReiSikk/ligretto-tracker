@@ -95,7 +95,7 @@ function GameSetCard({ title, players, gameSet }: GameSetCardProps) {
 
     if (isLoading) {
     return (
-      <div className="gameSetCard" onClick={handleClick}>
+      <li className="gameSetCard" onClick={handleClick}>
         <div className="gameSetCard__header">
           <h2 className="gameSetCard__title">{gameSet.name}</h2>
           <p className="gameSetCard__date">{formatDate(gameSet.created_at)}</p>
@@ -103,7 +103,7 @@ function GameSetCard({ title, players, gameSet }: GameSetCardProps) {
         <div className="gameSetCard__loading">
           <p>Loading scores...</p>
         </div>
-      </div>
+      </li>
     )
   }
 

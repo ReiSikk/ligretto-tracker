@@ -172,7 +172,7 @@ function CreateGameSet({ onClose, onCreateGame }: CreateGameSetProps) {
         </button>
       </div>
 
-      <div className="createGameSet__content">
+      <div className="createGameSet__content fp-col">
         <h1 className="createGameSet__title">Create new game set</h1>
         <p className="createGameSet__subtitle">
           Set up a new scoring session for your Ligretto games
